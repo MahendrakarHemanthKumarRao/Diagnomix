@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Breast Cancer Prediction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 20px;
+            text-align: center;
+            font-weight: bold;
+        }
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Breast Cancer Prediction</h1>
+    <form id="predictionForm">
+
+        <label for="radius_mean">Mean Radius:</label>
+        <input type="number" id="radius_mean" name="radius_mean" required step="0.01">
+
+        <label for="texture_mean">Mean Texture:</label>
+        <input type="number" id="texture_mean" name="texture_mean" required step="0.01">
+
+        <label for="perimeter_mean">Mean Perimeter:</label>
+        <input type="number" id="perimeter_mean" name="perimeter_mean" required step="0.01">
+
+        <label for="area_mean">Mean Area:</label>
+        <input type="number" id="area_mean" name="area_mean" required step="0.01">
+
+        <label for="smoothness_mean">Mean Smoothness:</label>
+        <input type="number" id="smoothness_mean" name="smoothness_mean" required step="0.000001">
+
+        <label for="compactness_mean">Mean Compactness:</label>
+        <input type="number" id="compactness_mean" name="compactness_mean" required step="0.000001">
+
+        <label for="concavity_mean">Mean Concavity:</label>
+        <input type="number" id="concavity_mean" name="concavity_mean" required step="0.000001">
+
+        <label for="concave_points_mean">Mean Concave Points:</label>
+        <input type="number" id="concave_points_mean" name="concave_points_mean" required step="0.000001">
+
+        <label for="symmetry_mean">Mean Symmetry:</label>
+        <input type="number" id="symmetry_mean" name="symmetry_mean" required step="0.000001">
+
+        <label for="fractal_dimension_mean">Mean Fractal Dimension:</label>
+        <input type="number" id="fractal_dimension_mean" name="fractal_dimension_mean" required step="0.000001">
+
+        <label for="radius_se">Radius SE:</label>
+        <input type="number" id="radius_se" name="radius_se" required step="0.01">
+
+        <label for="texture_se">Texture SE:</label>
+        <input type="number" id="texture_se" name="texture_se" required step="0.01">
+
+        <label for="perimeter_se">Perimeter SE:</label>
+        <input type="number" id="perimeter_se" name="perimeter_se" required step="0.01">
+
+        <label for="area_se">Area SE:</label>
+        <input type="number" id="area_se" name="area_se" required step="0.01">
+
+        <label for="smoothness_se">Smoothness SE:</label>
+        <input type="number" id="smoothness_se" name="smoothness_se" required step="0.000001">
+
+        <label for="compactness_se">Compactness SE:</label>
+        <input type="number" id="compactness_se" name="compactness_se" required step="0.000001">
+
+        <label for="concavity_se">Concavity SE:</label>
+        <input type="number" id="concavity_se" name="concavity_se" required step="0.000001">
+
+        <label for="concave_points_se">Concave Points SE:</label>
+        <input type="number" id="concave_points_se" name="concave_points_se" required step="0.000001">
+
+        <label for="symmetry_se">Symmetry SE:</label>
+        <input type="number" id="symmetry_se" name="symmetry_se" required step="0.000001">
+
+        <label for="fractal_dimension_se">Fractal Dimension SE:</label>
+        <input type="number" id="fractal_dimension_se" name="fractal_dimension_se" required step="0.000001">
+
+        <label for="radius_worst">Worst Radius:</label>
+        <input type="number" id="radius_worst" name="radius_worst" required step="0.01">
+
+        <label for="texture_worst">Worst Texture:</label>
+        <input type="number" id="texture_worst" name="texture_worst" required step="0.01">
+
+        <label for="perimeter_worst">Worst Perimeter:</label>
+        <input type="number" id="perimeter_worst" name="perimeter_worst" required step="0.01">
+
+        <label for="area_worst">Worst Area:</label>
+        <input type="number" id="area_worst" name="area_worst" required step="0.01">
+
+        <label for="smoothness_worst">Worst Smoothness:</label>
+        <input type="number" id="smoothness_worst" name="smoothness_worst" required step="0.000001">
+
+        <label for="compactness_worst">Worst Compactness:</label>
+        <input type="number" id="compactness_worst" name="compactness_worst" required step="0.000001">
+
+        <input type="submit" value="Generate and Download Report">
+    </form>
+    <div class="result" id="result"></div>
+
+    <script>
+        document.getElementById('predictionForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            var formData = new FormData(this);
+
+            fetch('/predict/breast_cancer', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (!response.ok) {
+                    return response.text().then(text => { throw new Error(text); });
+                }
+
+                const contentType = response.headers.get('Content-Type');
+                if (contentType && contentType.includes('application/pdf')) {
+                    return response.blob();
+                } else {
+                    return response.text().then(text => { throw new Error(text); });
+                }
+            })
+            .then(blob => {
+                var url = window.URL.createObjectURL(blob);
+                var a = document.createElement('a');
+                a.href = url;
+                a.download = 'breast_cancer_report.pdf';
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(url);
+                document.getElementById('result').textContent = 'Report downloaded successfully!';
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('result').innerHTML = `<span class="error">Error: ${error.message}</span>`;
+            });
+        });
+    </script>
+</body>
+</html>

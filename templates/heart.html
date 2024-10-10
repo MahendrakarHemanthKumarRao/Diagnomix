@@ -1,0 +1,171 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heart Disease Prediction</title>
+    <style>
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 5px;
+        }
+
+        input[type="number"] {
+            padding: 10px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            transition: border-color 0.3s;
+        }
+
+        input[type="number"]:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+        .btn {
+            padding: 10px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+        .result {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 16px;
+            color: #d9534f;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Heart Disease Prediction</h1>
+        <form id="predictionForm" class="form">
+            <div class="form-group">
+                <label for="age">Age:</label>
+                <input type="number" id="age" name="age" required>
+            </div>
+            <div class="form-group">
+                <label for="sex">Sex (0 for female, 1 for male):</label>
+                <input type="number" id="sex" name="sex" required min="0" max="1">
+            </div>
+            <div class="form-group">
+                <label for="cp">Chest Pain Type (0-3):</label>
+                <input type="number" id="cp" name="cp" required min="0" max="3">
+            </div>
+            <div class="form-group">
+                <label for="trestbps">Resting Blood Pressure:</label>
+                <input type="number" id="trestbps" name="trestbps" required>
+            </div>
+            <div class="form-group">
+                <label for="chol">Cholesterol:</label>
+                <input type="number" id="chol" name="chol" required>
+            </div>
+            <div class="form-group">
+                <label for="fbs">Fasting Blood Sugar > 120 mg/dl (1 = true; 0 = false):</label>
+                <input type="number" id="fbs" name="fbs" required min="0" max="1">
+            </div>
+            <div class="form-group">
+                <label for="restecg">Resting ECG Results (0-2):</label>
+                <input type="number" id="restecg" name="restecg" required min="0" max="2">
+            </div>
+            <div class="form-group">
+                <label for="thalach">Max Heart Rate Achieved:</label>
+                <input type="number" id="thalach" name="thalach" required>
+            </div>
+            <div class="form-group">
+                <label for="exang">Exercise Induced Angina (1 = yes; 0 = no):</label>
+                <input type="number" id="exang" name="exang" required min="0" max="1">
+            </div>
+            <div class="form-group">
+                <label for="oldpeak">ST Depression:</label>
+                <input type="number" id="oldpeak" name="oldpeak" required step="0.1">
+            </div>
+            <div class="form-group">
+                <label for="slope">Slope of Peak Exercise ST Segment (0-2):</label>
+                <input type="number" id="slope" name="slope" required min="0" max="2">
+            </div>
+            <div class="form-group">
+                <label for="ca">Number of Major Vessels (0-3):</label>
+                <input type="number" id="ca" name="ca" required min="0" max="3">
+            </div>
+            <div class="form-group">
+                <label for="thal">Thalassemia (0 = normal; 1 = fixed defect; 2 = reversible defect):</label>
+                <input type="number" id="thal" name="thal" required min="0" max="2">
+            </div>
+            <input type="submit" value="Generate and Download Report" class="btn">
+        </form>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        document.getElementById('predictionForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            var formData = new FormData(this);
+
+            fetch('/predict/heart', {  // Ensure the URL matches the Flask route
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (!response.ok) {
+                    return response.text().then(text => {throw new Error(text)});
+                }
+                return response.blob();  // Handle the PDF file
+            })
+            .then(blob => {
+                var url = window.URL.createObjectURL(blob);
+                var a = document.createElement('a');
+                a.href = url;
+                a.download = 'heart_disease_report.pdf';
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(url);
+                document.getElementById('result').textContent = 'Report downloaded successfully!';
+                document.getElementById('result').style.color = '#5cb85c'; // Success color
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('result').textContent = 'Error: ' + error.message;
+                document.getElementById('result').style.color = '#d9534f'; // Error color
+            });
+        });
+    </script>
+</body>
+</html>

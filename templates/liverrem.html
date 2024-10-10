@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Top Liver Doctors in India</title>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f7fa;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            display: flex;
+            justify-content: space-between; /* Space between title and buttons */
+            align-items: center; 
+            background-color: #6c5ce7;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        header h1 {
+            margin: 0;
+        }
+        .btn {
+            background-color: #ffffff;
+            color: #6c5ce7;
+            border: 1px solid #6c5ce7;
+            border-radius: 5px;
+            padding: 10px 20px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .btn:hover {
+            background-color: #6c5ce7;
+            color: white;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 0 20px;
+            margin-bottom: 80px;
+        }
+        .card {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            padding: 25px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(108, 92, 231, 0.2);
+        }
+        .card h2 {
+            margin-top: 0;
+            color: #2d3436;
+            font-size: 1.4em;
+        }
+        .card p {
+            margin: 8px 0;
+            color: #636e72;
+        }
+        .card .specialty {
+            font-weight: bold;
+            color: #6c5ce7;
+            font-size: 1.1em;
+            margin-bottom: 12px;
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #6c5ce7;
+            color: white;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+            box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
+        }
+        footer p {
+            margin: 5px 0;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>Top Liver Doctors in India</h1>
+    <div>
+        <a href="{% url 'services' %}" class="btn">Services</a>
+        <a href="{% url 'logout' %}" class="btn">Logout</a>
+    </div>
+</header>
+<div class="grid">
+    <div class="card">
+        <h2>Prof. Dr Mohamed Rela</h2>
+        <p class="specialty">Hepatobiliary and Liver Transplant Surgeon</p>
+        <p>Experience: 31+ Years</p>
+        <p>Location: Chennai</p>
+        <p>Hospital: Dr Rela's Institute & Medical Center</p>
+    </div>
+    <div class="card">
+        <h2>Dr Arvinder Singh Soin</h2>
+        <p class="specialty">Hepatobiliary and Liver Transplant Surgeon</p>
+        <p>Experience: 30+ years</p>
+        <p>Location: Gurgaon</p>
+        <p>Hospital: Medanta-The Medicity</p>
+    </div>
+    <div class="card">
+        <h2>Dr Aabha Nagra</h2>
+        <p class="specialty">Hepatologist And Liver Transplant Specialist</p>
+        <p>Experience: 32+ years</p>
+        <p>Location: Mumbai</p>
+        <p>Hospital: Apollo Hospital</p>
+    </div>
+    <div class="card">
+        <h2>Dr. Sanjay Govil</h2>
+        <p class="specialty">Liver Transplant Surgeon</p>
+        <p>Experience: 30+ Years</p>
+        <p>Location: Bangalore</p>
+        <p>Hospital: Apollo Hospital (Bannerghatta Road), Bangalore</p>
+    </div>
+</div>
+<footer>
+    <p>&copy; 2024 All Rights Reserved. Top Liver Doctors in India.</p>
+    <p>Developed by: M.Hemanth Kumar Rao, D.Jahnavi, Divyasai R, Dinesh Naik</p>
+</footer>
+</body>
+</html>

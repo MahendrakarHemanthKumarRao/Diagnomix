@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diagnomix</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles1.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: #080808;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #header {
+            background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
+            color: #e0e0e0;
+            padding: 15px;
+            font-weight: bold;
+            text-align: center;
+            border-bottom: 3px solid #3B7CBB;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Removed chatbot-related styles */
+
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 50px 0;
+            background: #1a1a1a;
+            gap: 50px;
+        }
+
+        .hero-content {
+            flex: 1;
+            padding-right: 10px;
+        }
+
+        .hero-content h2 {
+            font-size: 4.5em;
+            margin-bottom: 20px;
+        }
+
+        .hero .btn {
+            background: #1565C0;
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 5px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+
+        .hero .btn:hover {
+            background: #0D47A1;
+        }
+
+        .hero-image {
+            flex: 1;
+            text-align: right;
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: auto;
+            max-width: 72%;
+        }
+
+        .services {
+            padding: 50px 0;
+            text-align: center;
+            background: #121212;
+        }
+
+        .services h2 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .services p {
+            color: #bdbdbd;
+            margin-bottom: 40px;
+        }
+
+        .services-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .service {
+            background: #1a1a1a;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1);
+            max-width: 300px;
+            text-align: left;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .service:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(255, 255, 255, 0.2);
+        }
+
+        .service h3 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+
+        .service p {
+            color: #bdbdbd;
+        }
+
+        .service img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .additional-section {
+            background: #1a1a1a;
+            padding: 50px 0;
+        }
+
+        .additional-container {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+
+        .additional-image-section img {
+            max-width: 80%;
+            height: auto;
+            width: 100%;
+        }
+
+        .additional-content-section {
+            flex: 1;
+        }
+
+        .additional-content-section h1 {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        .additional-content-section p {
+            color: #bdbdbd;
+            margin-bottom: 20px;
+        }
+
+        .additional-stats {
+            display: flex;
+            gap: 20px;
+        }
+
+        .stat {
+            background: #2a2a2a;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1);
+            flex: 1;
+            text-align: center;
+        }
+
+        .stat h2 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .stat p {
+            color: #bdbdbd;
+        }
+
+        footer {
+            background: #c6d1e0;
+            color: rgb(14, 13, 13);
+            padding: 20px;
+            text-align: center;
+        }
+
+        .nav_links a {
+            color: #90CAF9;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        .nav_links a:hover {
+            color: #E3F2FD;
+        }
+    </style>
+</head>
+
+<body>
+    <header id="header">
+        <h1 id="diagnomix" class="animate-title">Diagnomix</h1>
+        <nav class="nav_links">
+            <p><a href="{{ url_for('home') }}">Home</a></p>
+            <p><a href="{{ url_for('dashboard') }}">Dashboard</a></p>
+            <p><a href="{{ url_for('services') }}">Services</a></p>
+            <p><a href="{{ url_for('about') }}">About</a></p>
+            <p><a href="{{ url_for('contact') }}">Contact</a></p>
+            <p><a href="{{ url_for('logout') }}">Logout</a></p>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h2>Welcome to Diagnomix</h2>
+            <h4>
+                <p>Our advanced platform offers comprehensive health analysis and disease prediction to help you stay
+                    informed and proactive about your health.</p>
+            </h4>
+        </div>
+        <div class="hero-image">
+            <img src="{{ url_for('static', filename='dcfa.png') }}" alt="Healthcare">
+        </div>
+    </section>
+
+    <section class="services">
+        <h2>Our Services</h2>
+        <p>We provide a range of services to meet your healthcare needs.</p>
+        <div class="services-grid">
+            <div class="service">
+                <img src="{{ url_for('static', filename='heart.jpg') }}" alt="Heart Disease">
+                <h3>Heart Disease Prediction</h3>
+                <p>Our platform uses advanced algorithms to predict heart disease with high accuracy.</p>
+            </div>
+            <div class="service">
+                <img src="{{ url_for('static', filename='liver.jpg') }}" alt="Liver Disease">
+                <h3>Liver Disease Detection</h3>
+                <p>Get early detection and timely interventions for liver diseases.</p>
+            </div>
+            <div class="service">
+                <img src="{{ url_for('static', filename='kidney.jpg') }}" alt="Kidney Disease">
+                <h3>Kidney Health Analysis</h3>
+                <p>Comprehensive analysis to keep your kidneys healthy.</p>
+            </div>
+            <div class="service">
+                <img src="{{ url_for('static', filename='pne.jpg') }}" alt="Pneumonia Detection">
+                <h3>Pneumonia Detection</h3>
+                <p>Accurate and fast detection of pneumonia for timely treatment.</p>
+            </div>
+            <div class="service">
+                <img src="{{ url_for('static', filename='Breast_Cancer.png') }}" alt="Breast Cancer Screening">
+                <h3>Breast Cancer Screening</h3>
+                <p>Advanced screening techniques for early detection of breast cancer.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="additional-section">
+        <div class="additional-container">
+            <div class="additional-image-section">
+                <img src="{{ url_for('static', filename='serimg.png') }}" alt="Analysis">
+            </div>
+            <div class="additional-content-section">
+                <h1>Advanced Health Analysis</h1>
+                <p>Our platform provides detailed health analysis using the latest technology to help you stay informed
+                    and proactive about your health.</p>
+                <div class="additional-stats">
+                    <div class="stat">
+                        <h2>90%</h2>
+                        <p>Accuracy in disease prediction</p>
+                    </div>
+                    <div class="stat">
+                        <h2>24/7</h2>
+                        <p>Support</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>Developed by: M.Hemanth Kumar Rao, D.Jahnavi, Divyasai R, Dinesh Naik</p>
+        <p>© 2024 A - 09. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>

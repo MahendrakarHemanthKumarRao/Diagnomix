@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kidney Disease Prediction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input[type="number"] {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        input[type="submit"] {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        input[type="submit"]:hover {
+            background: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Kidney Disease Prediction</h1>
+    <form id="predictionForm">
+        <!-- Updated Form fields to match the model -->
+        <label for="age">Age:</label>
+        <input type="number" id="age" name="age" required>
+
+        <label for="blood_pressure">Blood Pressure:</label>
+        <input type="number" id="blood_pressure" name="blood_pressure" required>
+
+        <label for="specific_gravity">Specific Gravity:</label>
+        <input type="number" id="specific_gravity" name="specific_gravity" required step="0.001">
+
+        <label for="albumin">Albumin:</label>
+        <input type="number" id="albumin" name="albumin" required>
+
+        <label for="sugar">Sugar:</label>
+        <input type="number" id="sugar" name="sugar" required>
+
+        <label for="red_blood_cells">Red Blood Cells (0 for normal, 1 for abnormal):</label>
+        <input type="number" id="red_blood_cells" name="red_blood_cells" required min="0" max="1">
+
+        <label for="pus_cell">Pus Cell (0 for normal, 1 for abnormal):</label>
+        <input type="number" id="pus_cell" name="pus_cell" required min="0" max="1">
+
+        <label for="blood_glucose_random">Blood Glucose Random:</label>
+        <input type="number" id="blood_glucose_random" name="blood_glucose_random" required>
+
+        <label for="blood_urea">Blood Urea:</label>
+        <input type="number" id="blood_urea" name="blood_urea" required step="0.1">
+
+        <label for="serum_creatinine">Serum Creatinine:</label>
+        <input type="number" id="serum_creatinine" name="serum_creatinine" required step="0.1">
+
+        <label for="sodium">Sodium:</label>
+        <input type="number" id="sodium" name="sodium" required step="0.1">
+
+        <label for="potassium">Potassium:</label>
+        <input type="number" id="potassium" name="potassium" required step="0.1">
+
+        <label for="hemoglobin">Hemoglobin:</label>
+        <input type="number" id="hemoglobin" name="hemoglobin" required step="0.1">
+
+        <label for="packed_cell_volume">Packed Cell Volume:</label>
+        <input type="number" id="packed_cell_volume" name="packed_cell_volume" required>
+
+        <label for="white_blood_cell_count">White Blood Cell Count:</label>
+        <input type="number" id="white_blood_cell_count" name="white_blood_cell_count" required>
+
+        <label for="red_blood_cell_count">Red Blood Cell Count:</label>
+        <input type="number" id="red_blood_cell_count" name="red_blood_cell_count" required step="0.1">
+
+        <label for="appetite">Appetite (0 for poor, 1 for good):</label>
+        <input type="number" id="appetite" name="appetite" required min="0" max="1">
+
+        <label for="anemia">Anemia (0 for no, 1 for yes):</label>
+        <input type="number" id="anemia" name="anemia" required min="0" max="1">
+
+        <input type="submit" value="Generate and Download Report">
+    </form>
+    <div class="result" id="result"></div>
+
+    <script>
+        document.getElementById('predictionForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            var formData = new FormData(this);
+
+           fetch('/predict/kidney', {
+    method: 'POST',
+    body: formData
+})
+.then(response => {
+    // If the response is not ok (like a 404 or 500), throw an error
+    if (!response.ok) {
+        return response.json().then(err => { throw new Error(err.error); });
+    }
+    // If it's a successful response, return it as a Blob (for the PDF file)
+    return response.blob();
+})
+.then(blob => {
+    // Create a URL for the Blob and trigger the download
+    var url = window.URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = 'kidney_report.pdf';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+})
+.catch(error => {
+    // Display the error message to the user
+    document.getElementById('result').textContent = 'Error: ' + error.message;
+});
+
+        });
+    </script>
+</body>
+</html>

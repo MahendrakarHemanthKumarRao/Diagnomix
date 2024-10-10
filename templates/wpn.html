@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pneumonia Predictor</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(to right, #00d2ff, #3a7bd5); /* New gradient colors */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: #333;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+            animation: fadeIn 1s ease-in-out;
+        }
+        h1 {
+            font-size: 26px;
+            margin-bottom: 20px;
+            color: #3a7bd5; /* Updated color */
+            text-transform: uppercase;
+        }
+        p {
+            margin-bottom: 20px;
+            color: #555;
+            font-size: 16px;
+        }
+        input[type="file"] {
+            display: block;
+            margin: 0 auto 20px;
+        }
+        label {
+            display: block;
+            background-color: #3a7bd5; /* Updated color */
+            color: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+        button {
+            background-color: #3a7bd5; /* Updated color */
+            color: #fff;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        button:hover {
+            background-color: #2a5b9f; /* Updated hover color */
+            transform: scale(1.05);
+        }
+        button:active {
+            transform: scale(0.98);
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Pneumonia Prediction</h1>
+        <p><i><mark>Take a chest X-ray image and upload it for prediction:</p>
+        <button type="button" onclick="redirectToNextPage()">Proceed</button>
+    </div>
+    <script>
+        function redirectToNextPage() {
+            window.location.href = "{{ url_for('predict_form', disease='pneumonia') }}";  // Update this URL to your actual next page
+        }
+    </script>
+</body>
+</html>

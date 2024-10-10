@@ -1,0 +1,269 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Developers of Tech Project</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%);
+            background-size: cover;
+            perspective: 1000px;
+            overflow-x: hidden;
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(90deg, #a8c0ff 0%, #3f2b96 100%);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 15px 30px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        #diagnomix {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin: 0;
+            background: linear-gradient(90deg, #3498db, #2ecc71);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav_links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav_links a {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: background 0.3s, transform 0.3s;
+        }
+
+        .nav_links a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.1);
+        }
+
+        .animate-title {
+            font-size: 2.5em;
+            color: #fff;
+            background: linear-gradient(90deg, #ff9a9e 0%, #fad0c4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: titleAnimation 2s infinite alternate;
+        }
+
+        @keyframes titleAnimation {
+            from {
+                transform: translateY(0);
+            }
+            to {
+                transform: translateY(-10px);
+            }
+        }
+
+        /* Title Styles */
+        h1 {
+    text-align: center;
+    font-size: 3.5em;
+    margin: 40px 0;
+    background: linear-gradient(90deg, #3498db, #2ecc71);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+    letter-spacing: 3px;
+    font-weight: bold;
+    text-transform: uppercase;
+    position: relative;
+}
+
+h1::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    background: inherit;
+    filter: none; /* Remove the blur effect */
+    opacity: 0.1; /* Adjust opacity to ensure the text remains clear */
+}
+
+
+       /* Developer Grid Styles */
+       .developer-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Ensure two columns */
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+@media (max-width: 768px) {
+    .developer-grid {
+        grid-template-columns: 1fr; /* Switch to one column on smaller screens */
+    }
+}
+
+/* Developer Card Styles */
+.developer-card {
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: 12px;
+    padding: 60px; /* Increased padding */
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2); /* Enhanced shadow */
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    height: 450px; /* Fixed height for consistency */
+}
+
+.developer-card img {
+    width: 250px; /* Increased image size */
+    height: 250px; /* Increased image size */
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 20px;
+    border: 4px solid rgba(240, 240, 240, 0.7);
+    transition: border 0.3s ease;
+}
+
+
+.developer-card h2 {
+    margin: 20px 0; /* Increased margin */
+    font-size: 2em; /* Increased font size */
+    color: #2c3e50;
+}
+
+.developer-card p {
+    font-size: 1.2em; /* Increased font size */
+    color: #7f8c8d;
+    line-height: 1.6;
+    margin-top: 15px;
+}
+
+.popup {
+    display: none;
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #3498db;
+    color: white;
+    padding: 15px; /* Increased padding */
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    font-size: 1.2em; /* Increased font size */
+}
+
+        .developer-card:hover .popup {
+            display: block;
+        }
+
+        .show-more {
+            display: flex;
+            justify-content: center;
+            margin: 40px 0;
+        }
+
+        .show-more button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .show-more button:hover {
+            background-color: #2ecc71;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <header id="header">
+        <h1 id="diagnomix" class="animate-title">Diagnomix</h1>
+        <nav class="nav_links">
+           <p><a href="{{ url_for('home') }}">Home</a></p>
+            <p><a href="{{ url_for('dashboard') }}">Dashboard</a></p>
+            <p><a href="{{ url_for('services') }}">Services</a></p>
+            <p><a href="{{ url_for('about') }}">About</a></p>
+            <p><a href="{{ url_for('contact') }}">Contact</a></p>
+            <p><a href="{{ url_for('logout') }}">Logout</a></p>
+        </nav>
+    </header>
+
+    <h1>Developers of Tech Project</h1>
+    <div class="developer-grid">
+        <div class="developer-card">
+            <img src="{{ url_for('static', filename='images/jd.png') }}" alt="Jahnavi D">
+            <h2>Jahnavi D</h2>
+            <p>Machine Learning Engineer</p>
+            <div class="popup">Machine Learning Engineer</div>
+        </div>
+        <div class="developer-card">
+            <img src="{{ url_for('static', filename='images/hk.png') }}" alt="Hemanth Kumar Rao M">
+            <h2>Hemanth Kumar Rao M</h2>
+            <p> Full Stack Developer, <br>Machine Learning Engineer</p>
+            <div class="popup">Full Stack Developer, <br>Machine Learning Engineer</div>
+        </div>
+        <div class="developer-card hidden">
+            <img src="{{ url_for('static', filename='images/ds.png') }}" alt="Divya Sai R">
+            <h2>DIVYA SAI R</h2>
+            <p> Front-End Developer</p>
+            <div class="popup"> Front-End Developer</div>
+        </div>
+        <div class="developer-card hidden">
+            <img src="{{ url_for('static', filename='images/dn.png') }}" alt="Dinesh Naik S">
+            <h2>DINESH NAIK S</h2>
+            <p> Front-End Developer</p>
+            <div class="popup"> Front-End Developer</div>
+        </div>
+    </div>
+    <div class="show-more">
+        <button onclick="showMore()">Show More</button>
+    </div>
+    <script>
+       let currentIndex = 0;
+
+function showMore() {
+    const hiddenCards = document.querySelectorAll('.developer-card.hidden');
+    const numCardsToShow = 2;
+    const cardsToShow = Array.from(hiddenCards).slice(currentIndex, currentIndex + numCardsToShow);
+
+    cardsToShow.forEach(card => card.classList.remove('hidden'));
+    
+    currentIndex += numCardsToShow;
+
+    // Hide the button if no more cards to show
+    if (currentIndex >= hiddenCards.length) {
+        document.querySelector('.show-more').style.display = 'none';
+    }
+}
+    </script>
+</body>
+</html>

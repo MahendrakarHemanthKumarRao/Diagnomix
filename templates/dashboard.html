@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <!-- Include Chart.js library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* General body styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #1e1e2f; /* Dark background color */
+            color: #ecf0f1; /* Light text color */
+        }
+
+        /* Header styles */
+        header {
+            background: linear-gradient(45deg, #34495e, #2c3e50); /* Gradient background */
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Shadow effect */
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Title styles */
+        #diagnomix {
+            color: #ecf0f1; /* Light text color */
+            font-size: 2.5rem;
+            margin: 0;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* Shadow effect */
+        }
+
+        /* Navigation links styles */
+        .nav_links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav_links a {
+            color: #ecf0f1; /* Light text color */
+            text-decoration: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            transition: all 0.3s ease-in-out;
+            font-weight: 500;
+            background: #3498db; /* Blue background */
+        }
+
+        .nav_links a:hover {
+            background: #2980b9; /* Darker blue on hover */
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .nav_links a.active {
+            background-color: #2980b9; /* Dark blue for active link */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .nav_links {
+                margin-top: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .nav_links a {
+                margin: 5px;
+            }
+        }
+
+        /* Page heading styles */
+        h1 {
+            text-align: center;
+            color: #ecf0f1; /* Light text color */
+            margin-top: 30px;
+            font-size: 2rem;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3); /* Shadow effect */
+        }
+
+        /* Chart container styles */
+        .chart-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Individual chart item styles */
+        .chart-container .chart-item {
+            background: #e6e9ec; /* Dark background for charts */
+            border: none;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Centered chart container */
+        .centered-chart {
+            grid-column: span 2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        @media (max-width: 768px) {
+            .chart-container {
+                grid-template-columns: 1fr;
+            }
+
+            .centered-chart {
+                grid-column: span 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="header-content">
+            <!-- Page title -->
+            <h1 id="diagnomix" class="animate-title">Diagnomix</h1>
+            <nav class="nav_links">
+                <!-- Navigation links -->
+                <p><a href="{{ url_for('home') }}">Home</a></p>
+            <p><a href="{{ url_for('dashboard') }}">Dashboard</a></p>
+            <p><a href="{{ url_for('services') }}">Services</a></p>
+            <p><a href="{{ url_for('about') }}">About</a></p>
+            <p><a href="{{ url_for('contact') }}">Contact</a></p>
+            <p><a href="{{ url_for('logout') }}">Logout</a></p>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Page heading for Dashboard -->
+    <h1>Dashboard</h1>
+    <div class="chart-container">
+        <!-- Chart for Heart Disease -->
+        <div class="chart-item">
+            <canvas id="heartChart" width="400" height="400"></canvas>
+        </div>
+        <!-- Chart for Breast Cancer -->
+        <div class="chart-item">
+            <canvas id="breastCancerChart" width="400" height="400"></canvas>
+        </div>
+        <!-- Chart for Liver Disease -->
+        <div class="chart-item">
+            <canvas id="liverChart" width="400" height="400"></canvas>
+        </div>
+        <!-- Chart for Kidney Disease -->
+        <div class="chart-item">
+            <canvas id="kidneyChart" width="400" height="400"></canvas>
+        </div>
+        <!-- Centered chart for Pneumonia -->
+        <div class="centered-chart">
+            <div class="chart-item">
+                <canvas id="pneumoniaChart" width="400" height="400"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Parse JSON data from Django context
+        const heartData = JSON.parse('{{ heart_data|escapejs }}');
+        const cancerData = JSON.parse('{{ breast_cancer_data|escapejs }}');
+        const liverData = JSON.parse('{{ liver_data|escapejs }}');
+        const kidneyData = JSON.parse('{{ kidney_data|escapejs }}');
+        const pneumoniaData = JSON.parse('{{ pneumonia_data|escapejs }}');
+
+        // Helper function to prepare chart data
+        function prepareChartData(data) {
+            return {
+                labels: data.map(item => item.age), // X-axis: Age
+                datasets: [{
+                    label: 'Predicted Probability of Heart Disease',
+                    data: data.map(item => item.prediction), // Y-axis: Prediction
+                    borderColor: 'rgba(255, 87, 34, 1)', // Updated color
+                    backgroundColor: 'rgba(255, 87, 34, 0.2)', // Updated color
+                }]
+            };
+        }
+
+        // Prepare and render charts
+        function renderChart(ctx, data) {
+            new Chart(ctx, {
+                type: 'line',
+                data: prepareChartData(data),
+                options: {
+                    responsive: true,
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Age'
+                            }
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Predicted Probability of Heart Disease'
+                            },
+                            ticks: {
+                                beginAtZero: true,
+                                callback: function(value) {
+                                    return value.toFixed(2); // Format y-axis values
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        const ctxHeart = document.getElementById('heartChart').getContext('2d');
+        renderChart(ctxHeart, heartData);
+
+        const ctxCancer = document.getElementById('breastCancerChart').getContext('2d');
+        renderChart(ctxCancer, cancerData);
+
+        const ctxLiver = document.getElementById('liverChart').getContext('2d');
+        renderChart(ctxLiver, liverData);
+
+        const ctxKidney = document.getElementById('kidneyChart').getContext('2d');
+        renderChart(ctxKidney, kidneyData);
+
+        const ctxPneumonia = document.getElementById('pneumoniaChart').getContext('2d');
+        renderChart(ctxPneumonia, pneumoniaData);
+    </script>
+</body>
+
+</html>

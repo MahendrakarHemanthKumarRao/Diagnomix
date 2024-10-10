@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kidney Disease Prediction</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(to right, #8e9eab, #eef2f3); /* Updated gradient colors */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: #333;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            max-width: 600px;
+            width: 100%;
+            animation: fadeIn 1s ease-in-out;
+        }
+        h1 {
+            font-size: 26px;
+            margin-bottom: 15px;
+            color: #3a9ad9;
+            text-align: center;
+            text-transform: uppercase;
+        }
+        p {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #555;
+            font-size: 16px;
+        }
+        label {
+            display: block;
+            margin: 10px 0;
+            font-weight: bold;
+            color: #444;
+            font-size: 15px;
+        }
+        button {
+            background-color: #3a9ad9;
+            color: #fff;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            margin-top: 20px;
+        }
+        button:hover {
+            background-color: #2b7bb9;
+            transform: scale(1.05);
+        }
+        button:active {
+            transform: scale(0.98);
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Kidney Disease Prediction</h1>
+        <p><i><mark>Please ensure all values are correctly filled in before proceeding.</mark></i></p>
+        <div>
+            <label>Age:</label>
+            <label>Blood Pressure:</label>
+            <label>Specific Gravity:</label>
+            <label>Albumin:</label>
+            <label>Sugar:</label>
+            <label>Red Blood Cells (0 for normal, 1 for abnormal):</label>
+            <label>Pus Cell (0 for normal, 1 for abnormal):</label>
+            <label>Blood Glucose Random:</label>
+            <label>Blood Urea:</label>
+            <label>Serum Creatinine:</label>
+            <label>Sodium:</label>
+            <label>Potassium:</label>
+            <label>Hemoglobin:</label>
+            <label>Packed Cell Volume:</label>
+            <label>White Blood Cell Count:</label>
+            <label>Red Blood Cell Count:</label>
+            <label>Appetite (0 for poor, 1 for good):</label>
+            <label>Anemia (0 for no, 1 for yes):</label>
+        </div>
+        <button type="button" onclick="redirectToNextPage()">Proceed</button>
+    </div>
+    <script>
+        function redirectToNextPage() {
+            window.location.href = "{{ url_for('predict_form', disease='kidney') }}";
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liver Disease Prediction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 20px;
+            text-align: center;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Liver Disease Prediction</h1>
+    <form id="predictionForm">
+        <label for="age">Age:</label>
+        <input type="number" id="age" name="age" required>
+
+        <label for="gender">Gender (0 for female, 1 for male):</label>
+        <input type="number" id="gender" name="gender" required min="0" max="1">
+
+        <label for="total_bilirubin">Total Bilirubin:</label>
+        <input type="number" id="total_bilirubin" name="total_bilirubin" required step="0.01">
+
+        <label for="direct_bilirubin">Direct Bilirubin:</label>
+        <input type="number" id="direct_bilirubin" name="direct_bilirubin" required step="0.01">
+
+        <label for="alkaline_phosphotase">Alkaline Phosphotase:</label>
+        <input type="number" id="alkaline_phosphotase" name="alkaline_phosphotase" required>
+
+        <label for="alamine_aminotransferase">Alamine Aminotransferase:</label>
+        <input type="number" id="alamine_aminotransferase" name="alamine_aminotransferase" required>
+
+        <label for="aspartate_aminotransferase">Aspartate Aminotransferase:</label>
+        <input type="number" id="aspartate_aminotransferase" name="aspartate_aminotransferase" required>
+
+        <label for="total_proteins">Total Proteins:</label>
+        <input type="number" id="total_proteins" name="total_proteins" required step="0.01">
+
+        <label for="albumin">Albumin:</label>
+        <input type="number" id="albumin" name="albumin" required step="0.01">
+
+        <label for="albumin_and_globulin_ratio">Albumin and Globulin Ratio:</label>
+        <input type="number" id="albumin_and_globulin_ratio" name="albumin_and_globulin_ratio" required step="0.01">
+
+        <input type="hidden" name="disease" value="liver">
+        <input type="submit" value="Predict">
+    </form>
+
+    <div class="result" id="result"></div>
+
+    <script>
+        document.getElementById('predictionForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            var formData = new FormData(this);
+
+            fetch('/predict/liver', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (response.ok) {
+                    const contentType = response.headers.get('Content-Type');
+                    if (contentType && contentType.includes('application/pdf')) {
+                        return response.blob();
+                    } else if (contentType && contentType.includes('application/json')) {
+                        return response.json();
+                    } else {
+                        throw new Error('Unexpected content type: ' + contentType);
+                    }
+                } else {
+                    return response.text().then(text => { throw new Error(text) });
+                }
+            })
+            .then(data => {
+                if (data instanceof Blob) {
+                    var url = window.URL.createObjectURL(data);
+                    var a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'liver_disease_report.pdf'; // Adjust filename if needed
+                    document.body.appendChild(a);
+                    a.click();
+                    window.URL.revokeObjectURL(url);
+                    document.getElementById('result').textContent = 'Report downloaded successfully!';
+                } else {
+                    document.getElementById('result').textContent = 'Report data: ' + JSON.stringify(data);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('result').textContent = 'Error: ' + error.message;
+            });
+        });
+    </script>
+</body>
+</html>

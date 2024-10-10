@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pneumonia Predictor</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body { padding-top: 50px; }
+        .card { margin-top: 20px; }
+        #imagePreview { max-width: 100%; height: auto; margin-top: 20px; display: none; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center mb-4">Pneumonia Predictor</h1>
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-body">
+                        <label for="age">Age:</label>
+        <input type="number" id="age" name="age" required>
+                        <h3 class="card-title text-center">Upload Chest X-Ray Image</h3>
+                        <form id="pneumoniaForm" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <input type="file" class="form-control-file" id="imageUpload" name="image" accept="image/*" required>
+                            </div>
+                            <div class="text-center">
+                                <img id="imagePreview" src="#" alt="Your image will appear here">
+                            </div>
+                            <div class="form-group text-center">
+                                <button type="submit" class="btn btn-primary">Predict</button>
+                            </div>
+                        </form>
+                        <div id="result" class="mt-3 text-center"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    $('#imagePreview').attr('src', e.target.result).show();
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $("#imageUpload").change(function() {
+            readURL(this);
+        });
+
+        document.getElementById('pneumoniaForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            var formData = new FormData(this);
+
+            // Log FormData contents for debugging
+            console.log('FormData contents:');
+            for (var pair of formData.entries()) {
+                console.log(pair[0] + ': ' + pair[1]);
+            }
+
+            var resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = 'Processing...';
+
+            fetch('/predict/pneumonia', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('HTTP error ' + response.status);
+                }
+                const contentType = response.headers.get('content-type');
+                if (contentType && contentType.includes('application/json')) {
+                    return response.json().then(data => ({data, type: 'json'}));
+                } else if (contentType && contentType.includes('application/pdf')) {
+                    return response.blob().then(blob => ({data: blob, type: 'pdf'}));
+                } else {
+                    throw new Error('Unexpected content type: ' + contentType);
+                }
+            })
+            .then(({data, type}) => {
+                if (type === 'json') {
+                    resultDiv.innerHTML = 'Prediction: ' + data.prediction;
+                } else if (type === 'pdf') {
+                    var url = window.URL.createObjectURL(data);
+                    var a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'pneumonia_report.pdf';
+                    document.body.appendChild(a);
+                    a.click();
+                    window.URL.revokeObjectURL(url);
+                    resultDiv.innerHTML = 'Report downloaded. If download didn\'t start, <a href="' + url + '" download="pneumonia_report.pdf">click here</a>.';
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                resultDiv.innerHTML = 'Error: ' + error.message;
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    <style>
+        /* Existing styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column; /* Ensure body is a column flex container */
+            min-height: 100vh;
+            background: linear-gradient(135deg, #111111 0%, #1b1b1b 99%, #fad0c4 100%);
+        }
+
+        header {
+            background: linear-gradient(90deg, #1abc9c 0%, #16a085 100%);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 15px 30px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        #header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .nav_links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav_links a {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: background 0.3s, transform 0.3s;
+        }
+
+        .nav_links a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.1);
+        }
+
+        .animate-title {
+            font-size: 2.5em;
+            color: #fff;
+            background: linear-gradient(90deg, #ff9a9e 0%, #fad0c4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: titleAnimation 2s infinite alternate;
+        }
+
+        @keyframes titleAnimation {
+            from {
+                transform: translateY(0);
+            }
+            to {
+                transform: translateY(-10px);
+            }
+        }
+
+        .contact-container {
+            display: flex;
+            flex-direction: column;
+            width: 90%;
+            max-width: 1000px;
+            background: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 20px auto;
+            transition: transform 0.3s;
+        }
+
+        .contact-container:hover {
+            transform: scale(1.02);
+        }
+
+        .left-side, .right-side {
+            padding: 40px;
+            width: 100%;
+        }
+
+        .left-side {
+            background: linear-gradient(135deg, #2ecc71, #1abc9c);
+            color: white;
+        }
+
+        .left-side h2 {
+            margin: 0 0 20px;
+            font-size: 2em;
+        }
+
+        .left-side p {
+            margin: 0 0 20px;
+            line-height: 1.6;
+        }
+
+        .contact-info .info-item {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+            transition: transform 0.3s;
+        }
+
+        .contact-info .info-item:hover {
+            transform: translateX(10px);
+        }
+
+        .contact-info .info-item i {
+            font-size: 1.5em;
+            margin-right: 10px;
+        }
+
+        .social-media {
+            margin-top: 30px;
+        }
+
+        .social-media span {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .social-icons a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+            font-size: 1.2em;
+            transition: color 0.3s;
+        }
+
+        .social-icons a:hover {
+            color: #ff9a9e;
+        }
+
+        .right-side h2 {
+            margin: 0 0 20px;
+            font-size: 2em;
+            color: #333;
+        }
+
+        form .input-box {
+            position: relative;
+            margin: 20px 0;
+        }
+
+        form .input-box input,
+        form .input-box textarea {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            outline: none;
+            resize: none;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        form .input-box input:focus,
+        form .input-box textarea:focus {
+            border-color: #1abc9c;
+        }
+
+        form .input-box label {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            pointer-events: none;
+            transition: 0.5s;
+            color: #aaa;
+        }
+
+        form .input-box input:focus ~ label,
+        form .input-box textarea:focus ~ label,
+        form .input-box input:valid ~ label,
+        form .input-box textarea:valid ~ label {
+            top: -10px;
+            left: 10px;
+            color: #1abc9c;
+            font-size: 12px;
+        }
+
+        form .input-box input[type="submit"] {
+            background: #1abc9c;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        form .input-box input[type="submit"]:hover {
+            background: #16a085;
+        }
+
+        @media (min-width: 768px) {
+            .contact-container {
+                flex-direction: row;
+            }
+
+            .left-side, .right-side {
+                width: 50%;
+            }
+        }
+
+        /* Styles for messages */
+        .message {
+            display: none;
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        .message.success {
+            background: #4caf50; /* Green */
+        }
+
+        .message.error {
+            background: #f44336; /* Red */
+        }
+    </style>
+</head>
+<body>
+    <header id="header">
+        <h1 id="diagnomix" class="animate-title">Diagnomix</h1>
+        <nav class="nav_links">
+            <p><a href="{{ url_for('home') }}">Home</a></p>
+            <p><a href="{{ url_for('dashboard') }}">Dashboard</a></p>
+            <p><a href="{{ url_for('services') }}">Services</a></p>
+            <p><a href="{{ url_for('about') }}">About</a></p>
+            <p><a href="{{ url_for('contact') }}">Contact</a></p>
+            <p><a href="{{ url_for('logout') }}">Logout</a></p>
+
+        </nav>
+    </header>
+
+    <div class="contact-container">
+        <div class="left-side">
+            <h1>Let's get in touch</h1>
+            <h4><p>We'd love to hear from you! Whether you have a question, a project in mind, or just want to say hello, feel free to reach out. We're here to help and eager to collaborate. Use the form below or connect with us via email or phone, and we’ll get back to you as soon as possible. Let's make something great together!</p>
+            </h4>
+            <div class="social-media">
+               
+                <div class="social-icons">
+                    <a href="#" aria-label="Facebook" target="_blank" rel="noopener noreferrer"><i class="icon-facebook"></i></a>
+                    <a href="#" aria-label="Twitter" target="_blank" rel="noopener noreferrer"><i class="icon-twitter"></i></a>
+                    <a href="#" aria-label="Instagram" target="_blank" rel="noopener noreferrer"><i class="icon-instagram"></i></a>
+                    <a href="#" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer"><i class="icon-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="right-side">
+            <h2>Contact us</h2>
+            <form id="contactForm" action="https://api.web3forms.com/submit" method="POST" onsubmit="handleFormSubmit(event)">
+                <input type="hidden" name="access_key" value="ee6ee252-79a8-497f-abb2-a87741f29333">
+                <div class="input-box">
+                    <input type="text" name="name" required>
+                    <label>Name</label>
+                </div>
+                <div class="input-box">
+                    <input type="email" name="email" required>
+                    <label>Email</label>
+                </div>
+                <div class="input-box">
+                    <input type="text" name="phone" required pattern="[0-9]{10}">
+                    <label>Phone</label>
+                </div>
+                <div class="input-box">
+                    <textarea name="message" required></textarea>
+                    <label>Message</label>
+                </div>
+                <div class="input-box">
+                    <input type="submit" value="Send">
+                </div>
+            </form>
+            <div class="message success" id="successMessage">Thank you for your submission!</div>
+            <div class="message error" id="errorMessage">Oops! There was a problem submitting your form. Please try again.</div>
+        </div>
+    </div>
+
+  <script>
+    async function handleFormSubmit(event) {
+        event.preventDefault(); // Prevent default form submission
+
+        const form = document.getElementById('contactForm');
+        const formData = new FormData(form);
+
+        try {
+            const response = await fetch(form.action, {
+                method: form.method,
+                body: formData
+            });
+
+            if (response.ok) {
+                // Show success message
+                document.getElementById('successMessage').style.display = 'block';
+            } else {
+                // Show error message
+                document.getElementById('errorMessage').style.display = 'block';
+            }
+
+            // Wait for 30 seconds before refreshing the page
+            setTimeout(() => {
+                window.location.reload();
+            }, 30000); // 30000 milliseconds = 30 seconds
+
+        } catch (error) {
+            // Show error message
+            document.getElementById('errorMessage').style.display = 'block';
+
+            // Wait for 30 seconds before refreshing the page
+            setTimeout(() => {
+                window.location.reload();
+            }, 30000);
+        }
+    }
+</script>
+
+
+</body>
+</html>

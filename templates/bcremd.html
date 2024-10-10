@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Top Breast Cancer Specialists in India</title>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            flex-direction: column;
+        }
+        header {
+            display: flex;
+            justify-content: space-between; /* Space between title and buttons */
+            align-items: center; /* Center items vertically */
+            background-color: #990066;
+            color: white;
+            padding: 10px 20px;
+        }
+        header h1 {
+            margin: 0;
+        }
+        .btn-container {
+            display: flex; /* Align buttons horizontally */
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: bold;
+            color: white;
+            background-color: #e74c3c; /* Default background color */
+            transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition for background color and transform */
+            margin-left: 10px; /* Space between buttons */
+        }
+        .btn:hover {
+            background-color: #c0392b; /* Darker background color on hover */
+            transform: scale(1.05); /* Slightly enlarge the button */
+        }
+        footer {
+            background-color: #990066;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+        }
+        footer p {
+            margin: 0;
+        }
+        .content {
+            flex: 1;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            padding: 20px;
+        }
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            transition: transform 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        .card h2 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+        .card p {
+            margin: 5px 0;
+            color: #34495e;
+        }
+        .card .specialty {
+            font-weight: bold;
+            color: #41ead4;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1 align="center">Top Breast Cancer Specialists in India</h1>
+        <div class="btn-container">
+            <a href="{% url 'services' %}" class="btn">Services</a>
+            <a href="{% url 'logout' %}" class="btn">Logout</a>
+        </div>
+    </header>
+    
+    <div class="content">
+        <div class="grid">
+            <div class="card">
+                <h2>Dr. Geeta Kadyaparth</h2>
+                <p class="specialty">Senior Director - Surgical Oncology (Breast)</p>
+                <p>Consults at: Max Vaishali</p>
+                <p>Experience: 20 years</p>
+            </div>
+            <div class="card">
+                <h2>Dr. Deepak Jha</h2>
+                <p class="specialty">Sr. Consultant & Clinical Lead - Breast Surgery - Oncology</p>
+                <p>Consults at: Artemis Hospital</p>
+                <p>Experience: 20 years</p>
+            </div>
+            <div class="card">
+                <h2>Dr. Rajeev Agarwal</h2>
+                <p class="specialty">Director - Breast Services, Cancer Institute</p>
+                <p>Consults at: Medanta - The Medicity</p>
+                <p>Experience: 20 years</p>
+            </div>
+            <div class="card">
+                <h2>Dr. Anupama Mane</h2>
+                <p class="specialty">Breast Surgeon</p>
+                <p>Consults at: Jehangir Hospital</p>
+                <p>Experience: 20 years</p>
+            </div>
+            <div class="card">
+                <h2>Dr. Namita Pandey</h2>
+                <p class="specialty">Breast Surgeon</p>
+                <p>Consults at: Dr L H Hiranandani Hospital</p>
+                <p>Experience: 20 years</p>
+            </div>
+            <div class="card">
+                <h2>Dr. Reshma Palep</h2>
+                <p class="specialty">Breast Surgeon</p>
+                <p>Consults at: Apollo Spectra Hospitals</p>
+                <p>Experience: 20 years</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 All Rights Reserved. Top Breast Cancer Specialists in India.</p>
+        <p>Developed by: M.Hemanth Kumar Rao, D.Jahnavi, Divyasai R, Dinesh Naik</p>
+    </footer>
+</body>
+</html>

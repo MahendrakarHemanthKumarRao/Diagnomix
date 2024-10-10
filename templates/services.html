@@ -1,0 +1,336 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services</title>
+    <style>
+        /* Basic styling for body */
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background: #000;
+            font-family: Arial, sans-serif;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Styling for header section */
+        header {
+            width: 100vw;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #333, #555);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-sizing: border-box;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            border-bottom: 3px solid #f39c12;
+        }
+
+        /* Title styling */
+        #diagnomix {
+            margin: 0;
+            font-size: 2em;
+            font-weight: bold;
+            background: linear-gradient(135deg, #ff6f61, #d4a5a5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.1);
+                opacity: 0.8;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        /* Navigation links styling */
+        .nav_links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav_links p {
+            margin: 0;
+        }
+
+        .nav_links a {
+            color: white;
+            text-decoration: none;
+            font-size: 1em;
+            transition: color 0.3s;
+            padding: 5px 10px;
+        }
+
+        .nav_links a:hover {
+            color: #f39c12;
+            border-bottom: 2px solid #f39c12;
+        }
+
+        /* Main heading styling */
+        h1 {
+            color: white;
+            margin-top: 80px;
+            margin-bottom: 40px;
+            font-size: 2.5em;
+            text-align: center;
+        }
+
+        /* Flexbox layout for cards */
+        .scene {
+            width: 100%;
+            max-width: 1000px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            perspective: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Styling for individual cards */
+        .card {
+            flex: 0 1 calc(33.333% - 20px);
+            max-width: 300px;
+            margin-bottom: 20px;
+            position: relative;
+            aspect-ratio: 3 / 4;
+            cursor: pointer;
+            transform-style: preserve-3d;
+            transition: transform 0.2s;
+        }
+
+        .card:hover {
+            transform: rotateY(180deg) scale(0.78);
+        }
+
+        /* Card face styling */
+        .card__face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+        }
+
+        .card__face--front {
+            background: linear-gradient(135deg, #ff6f61, #d4a5a5);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card__face--front img {
+            width: 100%;
+            height: calc(100% - 40px);
+            object-fit: cover;
+        }
+
+        .card__face--back {
+            background: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            transform: rotateY(180deg);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            text-align: left;
+        }
+
+        .card__title {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 10px;
+            text-align: center;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        /* Back content styling */
+        .back-content h2 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+
+        .back-content ul {
+            list-style: disc;
+            margin: 0;
+            padding: 0 20px;
+            text-align: left;
+        }
+
+        .back-content ul li {
+            margin-bottom: 5px;
+        }
+
+        .back-content p {
+            font-size: 1em;
+            margin-top: 10px;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .card {
+                flex: 0 1 calc(50% - 20px);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .card {
+                flex: 0 1 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header id="header">
+        <h1 id="diagnomix">Diagnomix</h1>
+        <nav class="nav_links">
+            <p><a href="{{ url_for('home') }}">Home</a></p>
+            <p><a href="{{ url_for('dashboard') }}">Dashboard</a></p>
+            <p><a href="{{ url_for('services') }}">Services</a></p>
+            <p><a href="{{ url_for('about') }}">About</a></p>
+            <p><a href="{{ url_for('contact') }}">Contact</a></p>
+            <p><a href="{{ url_for('logout') }}">Logout</a></p>
+
+        </nav>
+    </header>
+
+    <h1>Our Services</h1>
+    <div class="scene">
+        <!-- Card for Heart Disease Prediction -->
+        <div class="card" ondblclick="window.location.href='{{ url_for('whd') }}';">
+            <div class="card__face card__face--front">
+                <img src="{{ url_for('static', filename='heart.jpg') }}" alt="Heart Disease Prediction">
+                <h3 class="card__title">Heart Disease Prediction</h3>
+            </div>
+            <div class="card__face card__face--back">
+                <div class="back-content">
+                    <h2>Heart Disease Prediction</h2>
+                    <ul>
+                        <li>Chest pain or discomfort</li>
+                        <li>Shortness of breath</li>
+                        <li>Sudden weakness or numbness on one side of the body</li>
+                        <li>Trouble walking, dizziness, or loss of balance</li>
+                        <li>Severe headache with no known cause</li>
+                    </ul>
+                    <p>This condition requires immediate medical attention.</p>
+                    <p>Double-click to move to the prediction page</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card for Liver Disease Prediction -->
+        <div class="card" ondblclick="window.location.href='{{ url_for('wld') }}';">
+            <div class="card__face card__face--front">
+                <img src="{{ url_for('static', filename='liver.jpg') }}" alt="Liver Disease Prediction">
+                <h3 class="card__title">Liver Disease Prediction</h3>
+            </div>
+            <div class="card__face card__face--back">
+                <div class="back-content">
+                    <h2>Liver Disease Symptoms</h2>
+                    <ul>
+                        <li>Discomfort or swelling in the abdominal area</li>
+                        <li>Urine that is darker than usual</li>
+                        <li>Persistent fatigue or weakness</li>
+                        <li>Feeling sick to the stomach or vomiting</li>
+                        <li>Unusual or excessive bruising</li>
+                    </ul>
+                    <p>This condition requires immediate medical attention.</p>
+		    <p>Double-click to move to the prediction page.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card for Kidney Disease Prediction -->
+        <div class="card" ondblclick="window.location.href='{{ url_for('wkd') }}';">
+            <div class="card__face card__face--front">
+                <img src="{{ url_for('static', filename='kidney.jpg') }}" alt="Kidney Disease Prediction">
+                <h3 class="card__title">Kidney Disease Prediction</h3>
+            </div>
+            <div class="card__face card__face--back">
+                <div class="back-content">
+                    <h2>Kidney Disease Symptoms</h2>
+                    <ul>
+                        <li>Swelling in the legs, ankles, or feet</li>
+                        <li>Changes in urination patterns</li>
+                        <li>Persistent itching or rash</li>
+                        <li>Fatigue or weakness</li>
+                        <li>Loss of appetite and nausea</li>
+                    </ul>
+                    <p>Consult a doctor if symptoms persist.</p>
+		    <p>Double-click to move to the prediction page.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card for Pneumonia Disease Prediction -->
+        <div class="card" ondblclick="window.location.href='{{ url_for('wpn') }}';">
+            <div class="card__face card__face--front">
+                <img src="{{ url_for('static', filename='pne.jpg') }}" alt="Pneumonia Disease Prediction">
+                <h3 class="card__title">Pneumonia Disease Prediction</h3>
+            </div>
+            <div class="card__face card__face--back">
+                <div class="back-content">
+                    <h2>Pneumonia Disease Prediction Symptoms</h2>
+                    <ul>
+                        <li>Persistent cough or hoarseness</li>
+                        <li>Unexplained weight loss</li>
+                        <li>Change in bowel or bladder habits</li>
+                        <li>Bleeding or discharge from any part of the body</li>
+                        <li>Skin changes, such as yellowing or dark spots</li>
+                    </ul>
+                    <p>Consult a specialist for a detailed examination.</p>
+		    <p>Double-click to move to the prediction page.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card for Breast_Cancer Prediction -->
+        <div class="card" ondblclick="window.location.href='{{ url_for('wbc') }}';">
+            <div class="card__face card__face--front">
+                <img src="{{ url_for('static', filename='Breast_Cancer.png') }}" alt="Breast Cancer Prediction">
+                <h3 class="card__title">Breast_Cancer Prediction</h3>
+            </div>
+            <div class="card__face card__face--back">
+                <div class="back-content">
+                    <h2>Breast_Cancer Symptoms</h2>
+                    <ul>
+                        <li>Increased thirst and frequent urination</li>
+                        <li>Extreme fatigue</li>
+                        <li>Blurred vision</li>
+                        <li>Slow healing of wounds</li>
+                        <li>Unexplained weight loss</li>
+                    </ul>
+                    <p>Seek medical advice for proper diagnosis.</p>
+ 		    <p>Double-click to move to the prediction page.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

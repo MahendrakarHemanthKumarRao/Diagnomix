@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Breast Cancer Prediction</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(to right, #ff7e5f, #feb47b); /* Gradient background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: #333;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            max-width: 600px;
+            width: 100%;
+            animation: fadeIn 1s ease-in-out;
+        }
+        h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #ff7e5f;
+            text-align: center;
+            text-transform: uppercase;
+        }
+        p {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #555;
+            font-size: 16px;
+        }
+        label {
+            display: block;
+            margin: 10px 0;
+            font-weight: bold;
+            color: #444;
+            font-size: 14px;
+        }
+        button {
+            background-color: #ff7e5f;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            margin-top: 20px;
+        }
+        button:hover {
+            background-color: #e16d4e;
+            transform: scale(1.05);
+        }
+        button:active {
+            transform: scale(0.98);
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Breast Cancer Prediction</h1>
+        <p><i><mark>Please ensure all values are correctly filled in before proceeding.</mark></i></p>
+        <div>
+            <label>Mean Radius</label>
+            <label>Mean Texture</label>
+            <label>Mean Perimeter</label>
+            <label>Mean Area</label>
+            <label>Mean Smoothness</label>
+            <label>Mean Compactness</label>
+            <label>Mean Concavity</label>
+            <label>Mean Concave Points</label>
+            <label>Mean Symmetry</label>
+            <label>Mean Fractal Dimension</label>
+            <label>Radius SE</label>
+            <label>Texture SE</label>
+            <label>Perimeter SE</label>
+            <label>Area SE</label>
+            <label>Smoothness SE</label>
+            <label>Compactness SE</label>
+            <label>Concavity SE</label>
+            <label>Concave Points SE</label>
+            <label>Symmetry SE</label>
+            <label>Fractal Dimension SE</label>
+            <label>Worst Radius</label>
+            <label>Worst Texture</label>
+            <label>Worst Perimeter</label>
+            <label>Worst Area</label>
+            <label>Worst Smoothness</label>
+            <label>Worst Compactness</label>
+        </div>
+        <button type="button" onclick="redirectToNextPage()">Proceed</button>
+    </div>
+    <script>
+        function redirectToNextPage() {
+            window.location.href = "{{ url_for('predict_form', disease='breast_cancer') }}";
+        }
+    </script>
+</body>
+</html>

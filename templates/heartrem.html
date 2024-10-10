@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Best Cardiologists in India</title>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #e0f7fa;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            display: flex;
+            justify-content: space-between; /* Space between title and buttons */
+            align-items: center; 
+            background-color: #00796b;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        h1 {
+            margin: 0;
+        }
+        .btn-container {
+            display: flex;
+            gap: 10px; /* Space between buttons */
+        }
+        .btn {
+            background-color: #004d40;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+            padding: 10px 20px;
+            text-decoration: none;
+            text-align: center;
+            font-size: 16px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        .btn:hover {
+            background-color: #00332e;
+            transform: translateY(-2px);
+        }
+        .btn:active {
+            background-color: #00221a;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+        .card {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+            padding: 20px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
+        }
+        .card h2 {
+            margin-top: 0;
+            color: #004d40;
+        }
+        .card p {
+            margin: 5px 0;
+            color: #00796b;
+        }
+        .card .specialty {
+            font-weight: bold;
+            color: #009688;
+        }
+        footer {
+            background-color: #00796b;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: absolute;
+            width: 100%;
+            bottom: 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Top Cardiologists in India</h1>
+        <div class="btn-container">
+            <a href="{% url 'services' %}" class="btn">Services</a>
+            <a href="{% url 'logout' %}" class="btn">Logout</a>
+        </div>
+    </header>
+    <div class="grid">
+        <div class="card">
+            <h2>Dr. Aparna Jaswal</h2>
+            <p class="specialty">Interventional Cardiologist</p>
+            <p>Experience: 25+ Years</p>
+            <p>Location: Delhi</p>
+            <p>Hospital: Fortis Escorts Hospital, Delhi</p>
+        </div>
+        <div class="card">
+            <h2>Dr. (Col.) Manjinder Singh Sandhu</h2>
+            <p class="specialty">Interventional Cardiologist</p>
+            <p>Experience: 27+ Years</p>
+            <p>Location: Gurgaon</p>
+            <p>Hospital: Artemis Hospital, Gurgaon</p>
+        </div>
+        <div class="card">
+            <h2>Dr. Ashok Seth</h2>
+            <p class="specialty">Interventional Cardiologist</p>
+            <p>Experience: 38+ Years</p>
+            <p>Location: New Delhi</p>
+            <p>Hospital: Fortis Escorts Hospital, New Delhi</p>
+        </div>
+        <div class="card">
+            <h2>Dr. Mahesh Ghogare</h2>
+            <p class="specialty">Interventional Cardiologist</p>
+            <p>Experience: 15 Years</p>
+            <p>Location: Mumbai</p>
+            <p>Hospital: Apollo Hospital, Navi Mumbai</p>
+        </div>
+    </div>
+    <footer>
+        <p>&copy; 2024 All Rights Reserved. Best Cardiologists in India.</p>
+        <p>Developed by: M.Hemanth Kumar Rao, D.Jahnavi, Divyasai R, Dinesh Naik</p>
+    </footer>
+</body>
+</html>

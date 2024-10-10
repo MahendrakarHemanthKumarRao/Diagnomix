@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heart Disease Prediction - Warning</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(to right, #4e54c8, #8f94fb); /* Updated gradient colors */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: #333;
+        }
+        .container {
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            max-width: 500px;
+            width: 100%;
+            animation: fadeIn 1s ease-in-out;
+        }
+        h1 {
+            font-size: 28px;
+            margin-bottom: 15px;
+            color: #FF5F6D;
+            text-align: center;
+        }
+        p {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #555;
+        }
+        label {
+            display: block;
+            margin: 12px 0 5px;
+            font-weight: bold;
+            color: #444;
+        }
+        button {
+            background-color: #FF5F6D;
+            color: #fff;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 18px;
+            width: 100%;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        button:hover {
+            background-color: #e14e58;
+            transform: scale(1.05);
+        }
+        button:active {
+            transform: scale(0.98);
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Heart Disease Prediction</h1>
+        <p><i><mark>Please ensure all values are correctly filled in before proceeding.</i></mark></p>
+        <form id="predictionForm">
+            <label for="age">Age:</label>
+            <label for="sex">Sex (0 for female, 1 for male):</label>
+            <label for="chestPain">Chest Pain Type (0-3):</label>
+            <label for="restingBP">Resting Blood Pressure:</label>
+            <label for="cholesterol">Cholesterol:</label>
+            <label for="fastingBloodSugar">Fasting Blood Sugar > 120 mg/dl (1 = true; 0 = false):</label>
+            <label for="restingECG">Resting ECG Results (0-2):</label>
+            <label for="maxHeartRate">Max Heart Rate Achieved:</label>
+            <label for="exerciseAngina">Exercise Induced Angina (1 = yes; 0 = no):</label>
+            <label for="stDepression">ST Depression:</label>
+            <label for="slopeST">Slope of Peak Exercise ST Segment (0-2):</label>
+            <label for="numVessels">Number of Major Vessels (0-3):</label>
+            <label for="thalassemia">Thalassemia (0 = normal; 1 = fixed defect; 2 = reversible defect):</label>
+            <button type="button" onclick="redirectToNextPage()">Proceed</button>
+        </form>
+    </div>
+    <script>
+        function redirectToNextPage() {
+            // Redirect to the next page
+            window.location.href = "{{ url_for('predict_form', disease='heart') }}";
+        }
+    </script>
+</body>
+</html>

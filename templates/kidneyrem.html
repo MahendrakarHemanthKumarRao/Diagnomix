@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Best Neurologists in India</title>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f7f9fc; /* Light grey-blue */
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            display: flex;
+            justify-content: space-between; /* Space between title and buttons */
+            align-items: center; 
+            background-color: #ff4d6d; /* Vivid orange-coral */
+            color: #ffffff; /* White */
+            padding: 20px;
+            text-align: center;
+        }
+        h1 {
+            margin: 0;
+        }
+        .btn {
+            background-color: #ffffff; /* White */
+            color: #ff4d6d; /* Vivid orange-coral */
+            border: 1px solid #ff4d6d; /* Vivid orange-coral */
+            border-radius: 5px;
+            padding: 10px 20px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .btn:hover {
+            background-color: #ff4d6d; /* Vivid orange-coral */
+            color: #ffffff; /* White */
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+        .card {
+            background-color: #ffffff; /* White */
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
+        }
+        .card h2 {
+            margin-top: 0;
+            color: #333333; /* Dark grey */
+        }
+        .card p {
+            margin: 5px 0;
+            color: #666666; /* Medium grey */
+        }
+        .card .specialty {
+            font-weight: bold;
+            color: #ef8354; /* Vivid orange-coral */
+        }
+        footer {
+            background-color: #ff4d6d; /* Vivid orange-coral */
+            color: #ffffff; /* White */
+            text-align: center;
+            padding: 10px;
+            position: absolute;
+            width: 100%;
+            bottom: 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Best Neurologists in India</h1>
+        <div>
+            <a href="{% url 'services' %}" class="btn">Services</a>
+            <a href="{% url 'logout' %}" class="btn">Logout</a>
+        </div>
+    </header>
+    <div class="grid">
+        <div class="card">
+            <h2>Dr. Rahul Bhatia</h2>
+            <p class="specialty">Neurologist</p>
+            <p>Experience: 30+ Years</p>
+            <p>Location: Delhi</p>
+            <p>Hospital: AIIMS, Delhi</p>
+        </div>
+        <div class="card">
+            <h2>Dr. Nisha Verma</h2>
+            <p class="specialty">Neurologist</p>
+            <p>Experience: 25+ Years</p>
+            <p>Location: Mumbai</p>
+            <p>Hospital: Kokilaben Dhirubhai Ambani Hospital</p>
+        </div>
+        <div class="card">
+            <h2>Dr. Sunil Kumar</h2>
+            <p class="specialty">Neurologist</p>
+            <p>Experience: 28+ Years</p>
+            <p>Location: Bangalore</p>
+            <p>Hospital: Manipal Hospital</p>
+        </div>
+        <div class="card">
+            <h2>Dr. Anjali Singh</h2>
+            <p class="specialty">Neurologist</p>
+            <p>Experience: 22 Years</p>
+            <p>Location: Hyderabad</p>
+            <p>Hospital: Apollo Hospitals</p>
+        </div>
+    </div>
+    <footer>
+        <p>&copy; 2024 All Rights Reserved. Best Neurologists in India.</p>
+        <p>Developed by: M.Hemanth Kumar Rao, D.Jahnavi, Divyasai R, Dinesh Naik</p>
+    </footer>
+</body>
+</html>
